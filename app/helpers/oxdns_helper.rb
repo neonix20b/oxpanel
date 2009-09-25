@@ -1,0 +1,2 @@
+module OxdnsHelper
+end

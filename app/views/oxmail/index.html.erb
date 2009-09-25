@@ -1,0 +1,24 @@
+<% form_for 'frm',:url => { :action => "ctrluser", :do => 'reg' } do |p|%>
+<table border="1px">
+<tr>
+  <td>e-mail</td><td>password</td><td>[x]</td>
+</tr>
+<%i=0%>
+<% @users.each do |p|%>
+  <%i=i+1%>
+<tr id='usr_tr_<%= i.to_s %>'>
+  <td><%= link_to_remote p[0], :update => 'addition',:method => 'get',:url => {:action => 'viewalias', :mail => p[0]}%></td>
+  <td><span id='plced_tr_<%= i.to_s %>'><%= p[1]%></span>
+    <%= in_place_editor 'plced_tr_'+i.to_s, :url => url_for(:action => 'change_password', :user => p[0]) %></td>
+  <td><%= link_to_remote '[x]', :update => 'usr_tr_'+i.to_s,:method => 'get',:url => {:action => 'ctrluser', :do =>'unreg' ,:user => p[0]}%></td>
+</tr>
+<%end%>
+<tr><td></td><td></td></tr>
+<tr>
+  <td><%= text_field 'frm', 'user' %></td><td><%= text_field 'frm','pass' %></td>
+</tr>
+<tr>
+  <td></td><td><%= submit_tag 'Create' %></td>
+</tr>
+</table>
+<%end%>

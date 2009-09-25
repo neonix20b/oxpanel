@@ -1,0 +1,21 @@
+<%= params[:mail] %>
+<% form_for 'frm',:url => { :action => "ctrlalias", :do => 'reg' } do |p|%>
+<table border="1px">
+<tr>
+  <td>Псевдонимы</td><td>[x]</td>
+</tr>
+<%i=0%>
+<% @aliases.each do |p|%>
+    <%i=i+1%>
+<tr id='als_tr_<%= i.to_s %>'>
+  <td><%= p[1]%></td>
+<td><%= link_to_remote '[x]', :update => 'als_tr_'+i.to_s, :method => 'get',:url => {:action => 'ctrlalias', :do =>'unreg' , :user => p[0], :alias => p[1]}%></td>
+</tr>
+<%end%>
+<tr></tr>
+<tr>
+  <td><%= text_field 'frm', 'alias' %></td>
+  <td><%= hidden_field 'frm', 'user', :value=>params[:mail] %><%= submit_tag '+' %></td>
+</tr>
+</table>
+<%end%>

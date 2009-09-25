@@ -1,0 +1,22 @@
+<table>
+<tr>
+<td><span id='slave_td_all'><%= link_to_remote 'обновить все', :update => 'slave_td_all', :method => 'get',:url => {:action => 'refresh', :slave => 'all'}%></span></td>
+</tr>
+<% @slaves.each do |p|%>
+<tr  id='slave_tr_<%= p[0] %>'>
+    <td><span id='slave_td_<%= p[0] %>'><%= link_to_remote p[0], :update => 'slave_td_'+p[0], :method => 'get',:url => {:action => 'refresh', :slave => p[0]}%></span></td>
+    <td><%= link_to_remote '[x]', :update => 'slave_tr_'+p[0], :method => 'get',:url => {:action => 'del', :slave => p[0]}, :confirm => "точно ну ее нахуй??"%></td>
+</tr>
+<%end%>
+</table>
+
+<% form_for 'frm',:url => { :action => "add" } do |p|%>
+<table>
+  <tr>
+    <td>ip:</td><td><%= text_field 'frm', 'slave' %></td>
+  </tr>
+  <tr>
+    <td></td><td><%= submit_tag 'Create' %></td>
+  </tr>
+</table>
+<%end%>

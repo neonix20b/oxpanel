@@ -1,0 +1,43 @@
+<% i=0 %>
+<b><%= tpp %></b>
+<div id="tbl_<%=tpp%>">
+<table>
+<tr>
+<%if tpp=="SOA"%>
+  <td></td>
+<%end%>
+<td><b><%= head.join('</b></td><td><b>') %></b></td>
+</tr>
+<% obj.each do |p|%>
+<% inthead=0; %>
+<tr  id='dns_tr_<%= p[0] %>'>
+<%if tpp=="SOA"%>
+  <td><%= link_to_remote 'Просмотр', :update => 'addition',:method => 'get',:url => {:action => 'viewzone', :zone => p[-1]}%></td>
+<%end%>
+    <%p[1..-1].each do |f|%>
+      <% i=i+1; inthead += 1; %>
+        <td><span id='<%= tpp %>_td_<%= i.to_s %>'><%= f %></span>
+        <%= in_place_editor tpp+'_td_'+i.to_s, :url => url_for(:action => 'change_dns', :id => p[0], :pole => head[inthead-1], :escape => false) %></td>
+    <%end%>
+    <td><%= link_to_remote '[x]', :update => 'dns_tr_'+p[0], :method => 'get',:url => {:action => 'del', :id => p[0]}, :confirm => "точно ну ее нахуй??"%></td>
+</tr>
+<%end%>
+</table>
+
+<% form_for 'frm',:url => { :action => "add" } do |p|%>
+<table>
+<% head.each do |p| %>
+  <tr>
+    <td><%= p %>:</td><td><%= text_field 'frm', p %></td>
+  </tr>
+<%end%>
+  <tr>
+    <td></td><td><%= hidden_field 'frm', 'tps', :value=>tpp %>
+<%if tpp!="SOA"%>
+        <%= hidden_field 'frm', 'zone', :value=>params[:zone] %>
+<%end%>        
+    <%= submit_tag 'Create' %></td>
+  </tr>
+</table>
+<%end%>
+</div>

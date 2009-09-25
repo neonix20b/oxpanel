@@ -1,0 +1,25 @@
+<table border="1px">
+  <tr>
+    <td><b>id</b></td><td><b>домен</b></td><td><b>e-mail</b></td><td><b>место</b></td><td><b>mysql</b></td><td><b>Последний визит</b></td>
+  </tr>
+  <% @users.each do |p|%>
+    <tr  id='uzz_tr_<%= p[0] %>'>
+      <%i=0%>
+      <%p.each do |uzz| %>
+
+        <% if p[0]=='-1' %>
+          <td><b><%= uzz %></b></td>
+        <%else%>
+          <% if i==1 %>
+            <td><a href="http://<%=uzz%>.oxnull.net/" target="_blank"><%=uzz%></a></td>
+          <%else%>
+            <td style="padding:0 4px;"><%= uzz %></td>
+          <%end%>
+        <%end%>
+        <% i+=1 %>
+        
+      <%end%>
+      <td><%= link_to_remote '[x]', :update => 'uzz_tr_'+p[0], :method => 'get',:url => {:action => 'del', :id => p[0]}, :confirm => "точно #{p[1]}.oxnull.net накуй??" if p[0]!='-1'%></td>
+    </tr>
+  <%end%>
+</table>

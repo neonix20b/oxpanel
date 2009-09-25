@@ -1,0 +1,9 @@
+<table>
+<tr><td>Name</td><td>Value</td></tr>
+<%@cfg.each do |c|%>
+<tr><td><%= c[0] %></td>
+        <td><span id='<%= c[0] %>_td'><%= c[1] %></span>
+        <%= in_place_editor c[0]+'_td', :url => url_for(:action => 'updatecfg', :pole => c[0], :escape => false) %></td>
+        </tr>
+<%end%>
+</table>

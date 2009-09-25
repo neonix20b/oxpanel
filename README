@@ -1,0 +1,16 @@
+Таблицы пользователей и алиасов:
++mail.view_users(email text, password varchar(32))
++mail.view_aliases(email text, destination text)
+Функции управления:
+mail.register_user(pusername text, ppassword text) returns void
+mail.unregister_user(pusername text) returns void
+mail.change_password(pusername text, ppassword text)
+mail.register_alias(pfrom text, pto text) returns void
+mail.unregister_alias(pfrom text, pto text)
+
+Вызов хранимой процедуры имеет вид:
+select <proc_name>(<proc_params>);
+select * from mail.view_users;
+select mail.unregister_alias('admin@oxnull.net', 'lupus@oxnull.net');
+
+select * from dns.dns_records where type = 'A' and zone = 'oxnull.net'; 
